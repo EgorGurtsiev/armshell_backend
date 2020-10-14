@@ -26,5 +26,5 @@ urlpatterns = [
     path('tools/login/', RedirectView.as_view(url='https://api.worldoftanks.ru/wot/auth/login/?'
                                                   'application_id=' + APPLICATION_ID +
                                                   '&expires_at=1209600&redirect_uri=http://127.0.0.1:8000/',
-                                              permanent=True, http_method_names='POST'))
+                                              permanent=True, http_method_names='POST')),
 ]
