@@ -127,3 +127,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+
+# WG API
+APPLICATION_ID = '7f59cc83eeb85604113272e893821523'
