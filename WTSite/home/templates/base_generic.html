@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Wottransfer</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">WOTTRANSFER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Главная <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Активация резервов</a>
+                <a class="nav-item nav-link disabled" href="#">База рот</a>
+                <a class="nav-item nav-link disabled" href="#">ГК асистент</a>
+                <a class="nav-item nav-link disabled" href="#">Статистика АБС</a>
+            </div>
+        </div>
+        <div class="navbar-nav">
+
+            <a class="nav-link" href="/tools/login/">
+                <svg width="1em" height="1,5em" viewBox="0 2 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                    <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                </svg>
+                Войти
+            </a>
+        </div>
+    </nav>
+    {% block content %}
+        <h1>Белиберда</h1>
+    {% endblock %}
+</body>
+</html>

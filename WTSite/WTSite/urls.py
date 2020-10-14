@@ -13,9 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.generic import RedirectView
+
+from .settings import APPLICATION_ID
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+    path('tools/login/', RedirectView.as_view(url='https://api.worldoftanks.ru/wot/auth/login/?'
+                                                  'application_id=' + APPLICATION_ID +
+                                                  '&expires_at=1209600&redirect_uri=http://127.0.0.1:8000/',
+                                              permanent=True, http_method_names='POST'))
 ]
