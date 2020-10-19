@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from .secret import secret_key, WG_API_ID
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=f-qgvazej8zh#7vgs9s5k4t%!q_^zxjb3aziaim3$isd^e(u#'
+SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -130,4 +132,4 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 
 # WG API
-APPLICATION_ID = '7f59cc83eeb85604113272e893821523'
+APPLICATION_ID = WG_API_ID
