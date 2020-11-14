@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Wottransfer</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}"}>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
         <a class="navbar-brand" href="#">WOTTRANSFER</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -17,17 +21,47 @@
                 <a class="nav-item nav-link active" href="#">Главная <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="#">Активация резервов</a>
                 <a class="nav-item nav-link disabled" href="#">База рот</a>
-                <a class="nav-item nav-link disabled" href="#">ГК асистент</a>
+                <a class="nav-item nav-link disabled" href="#">ГК ассистент</a>
                 <a class="nav-item nav-link disabled" href="#">Статистика АБС</a>
             </div>
         </div>
-        <div class="navbar-nav pt-1">
-            <a class="nav-item nav-link" href="{% url 'WG-OpenID' %}">
-                <svg class="bi bi-person-circle mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 661.738 678.039" width="20" height="20">
-                    <path d="M 319.897 0.18 c 70.85 -2.403 142.426 19.221 200.312 61.374 c 69.892 49.891 119.485 128.508 135.234 214.438 c 12.797 62.188 5.505 127.694 -16.608 186.736 c -28.96 77.272 -86.567 142.571 -158.455 179.95 c -46.465 23.923 -98.503 38.125 -150.748 34.909 c -43.543 2.581 -86.982 -7.487 -127.017 -24.698 c -80.896 -34.623 -147 -103.878 -178.984 -187.688 c -25.074 -64.344 -30.719 -136.705 -14.414 -204.05 c 18.541 -82.043 68.615 -155.817 136.577 -202.813 C 196.905 22.475 258.091 2.406 319.897 0.18 m -62.975 79.854 c -69.372 20.633 -129.461 71.975 -161.618 138.435 c -25.006 50.21 -32.882 108.649 -24.521 164.232 c 1.374 6.711 0.755 14.34 4.988 20.104 c 26.342 -60.419 57.919 -121.124 108.611 -163.808 c 48.603 -39.396 107.276 -69.5 170.286 -70.667 c -12.761 -15.581 -25.59 -31.093 -38.691 -46.394 c 45.19 13.074 90.247 26.678 134.995 41.305 c -30.716 31.624 -61.356 63.354 -93.349 93.601 c 1.035 -19.47 2.479 -38.974 2.96 -58.479 c -22.048 3.958 -42.578 14.842 -59.639 29.54 c -37.214 32.261 -59.124 79.182 -72.744 126.354 c -14.033 48.479 -19.877 99.532 -17.436 150.023 c 34.875 -4.096 68.684 -16.394 99.154 -34.13 c 37.183 -21.696 68.653 -56.077 81.311 -98.688 c -16.028 2.649 -31.919 6.258 -47.671 10.245 c 25.452 -33.211 51.485 -65.965 76.872 -99.249 c 21.839 37.101 44.159 73.949 63.281 112.644 c -16.987 -6.749 -32.982 -15.898 -50.316 -21.662 c 17.78 72.861 13.86 151.581 -14.446 221.081 c 76.08 -27.168 138.021 -92.5 162.34 -171.4 c 21.668 -69.007 15.548 -147.27 -18.397 -211.044 c -28.723 -55.649 -77.248 -99.995 -134.104 -123.385 c -54.204 -22.473 -115.769 -25.053 -171.866 -8.658 Z" />
-                </svg>
-                <span class="">Войти</span>
-            </a>
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+                <a class="nav-item nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    {{ request.user.username }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">Настройки</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+                </div>
+            {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}?{{ request.get_full_path }}">
+                    <svg class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 661.738 678.039" width="24" height="24">
+                        <path d="M 319.897 0.18 c 70.85 -2.403 142.426 19.221 200.312 61.374 c 69.892 49.891 119.485
+                        128.508 135.234 214.438 c 12.797 62.188 5.505 127.694 -16.608 186.736 c -28.96 77.272 -86.567
+                        142.571 -158.455 179.95 c -46.465 23.923 -98.503 38.125 -150.748 34.909 c -43.543 2.581 -86.982
+                        -7.487 -127.017 -24.698 c -80.896 -34.623 -147 -103.878 -178.984 -187.688 c -25.074 -64.344
+                        -30.719 -136.705 -14.414 -204.05 c 18.541 -82.043 68.615 -155.817 136.577 -202.813 C 196.905
+                        22.475 258.091 2.406 319.897 0.18 m -62.975 79.854 c -69.372 20.633 -129.461 71.975 -161.618
+                        138.435 c -25.006 50.21 -32.882 108.649 -24.521 164.232 c 1.374 6.711 0.755 14.34 4.988 20.104
+                        c 26.342 -60.419 57.919 -121.124 108.611 -163.808 c 48.603 -39.396 107.276 -69.5 170.286
+                        -70.667 c -12.761 -15.581 -25.59 -31.093 -38.691 -46.394 c 45.19 13.074 90.247 26.678 134.995
+                        41.305 c -30.716 31.624 -61.356 63.354 -93.349 93.601 c 1.035 -19.47 2.479 -38.974 2.96 -58.479
+                        c -22.048 3.958 -42.578 14.842 -59.639 29.54 c -37.214 32.261 -59.124 79.182 -72.744 126.354 c
+                        -14.033 48.479 -19.877 99.532 -17.436 150.023 c 34.875 -4.096 68.684 -16.394 99.154 -34.13 c
+                        37.183 -21.696 68.653 -56.077 81.311 -98.688 c -16.028 2.649 -31.919 6.258 -47.671 10.245 c
+                        25.452 -33.211 51.485 -65.965 76.872 -99.249 c 21.839 37.101 44.159 73.949 63.281 112.644 c
+                        -16.987 -6.749 -32.982 -15.898 -50.316 -21.662 c 17.78 72.861 13.86 151.581 -14.446 221.081 c
+                        76.08 -27.168 138.021 -92.5 162.34 -171.4 c 21.668 -69.007 15.548 -147.27 -18.397 -211.044 c
+                        -28.723 -55.649 -77.248 -99.995 -134.104 -123.385 c -54.204 -22.473 -115.769 -25.053 -171.866
+                        -8.658 Z" />
+                    </svg>
+                    <span style=" vertical-align: middle">Войти</span>
+                </a>
+            {% endif %}
         </div>
     </nav>
     {% block content %}
