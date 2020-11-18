@@ -34,10 +34,10 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="#">Настройки</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+                      <a class="dropdown-item" href="{% url 'logout' %}?url_back={{ request.get_full_path }}">Выйти</a>
                 </div>
             {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}?{{ request.get_full_path }}">
+                <a class="nav-item nav-link" href="{% url 'login' %}?url_back={{ request.get_full_path }}">
                     <svg class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 661.738 678.039" width="24" height="24">
                         <path d="M 319.897 0.18 c 70.85 -2.403 142.426 19.221 200.312 61.374 c 69.892 49.891 119.485

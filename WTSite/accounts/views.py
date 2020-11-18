@@ -18,7 +18,7 @@ from django.conf import settings
 
 def login_user_step1(request):
     url = get_url_to_auth(request)
-    url_before_authorization = request.GET.get('url_before_authorization', reverse('home'))
+    url_before_authorization = request.GET['url_back']
     response = redirect(url)
     response.set_cookie(key='url_before_authorization', value=url_before_authorization, path=reverse('callback'),
                         httponly=True)
@@ -31,12 +31,12 @@ def login_user_step2(request):
         # User.access_token = new_access_token
         print(new_access_token)
 
-        url_back = request.COOKIES['url_before_authorization']
-        response = redirect(url_back)
-        response.delete_cookie('url_before_authorization')
         user = create_user(request.GET['nickname'])
         login(request, user)
 
+        url_back = request.COOKIES['url_back']
+        response = redirect(url_back)
+        response.delete_cookie('url_back')
         return response
     else:
         logout(request)
@@ -45,4 +45,7 @@ def login_user_step2(request):
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+
+    url_back = request.GET['url_back']
+    response = redirect(url_back)
+    return response
