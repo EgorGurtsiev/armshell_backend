@@ -38,7 +38,9 @@ def get_url_to_auth(request, return_to=None):
     return url
 
 
-def create_user(nickname, request):
+def create_user(nickname):
+    """Создает нового User, или возвращает существующего."""
+
     try:
         user = User.objects.get(username__exact=nickname)
 
@@ -47,7 +49,6 @@ def create_user(nickname, request):
         user = User.objects.create_user(nickname, '', password)
         user.save()
 
-    login(request, user)
     return user
 
 
@@ -68,26 +69,22 @@ def __parse_openid_response(request):
 def openid_response_verification(request):
     """Проверяет данные аккаунта с помощью доп. запросов к API"""
 
+    nickname = request.GET['nickname']
+    account_id = request.GET['account_id']
+
     if request.GET['status'] == 'ok':
-        data = __parse_openid_response(request)
-        application_id = settings.APPLICATION_ID
 
         data = {
-            'application_id': application_id,
-            'account_id': request.GET['data']['access_token'],
+            'application_id': settings.APPLICATION_ID,
+            'account_id': request.GET['access_token'],
             'fields': ['nickname', 'private'],
             'extra': ['private.rented']
         }
         response = requests.post(url='https://api.worldoftanks.ru/wot/account/info/', data=data)
-        res_json = response.json()
-        if res_json['status'] == 'ok':
+        if response.json()['status'] == 'ok':
             if nickname == response.json()['data'][account_id]['nickname']:
                 return True
-        return False
-
-
-        return check_access_token()
-    return False
+    return Exception
 
 
 def get_new_access_token(access_token):
