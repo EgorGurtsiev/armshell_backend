@@ -41,7 +41,7 @@ def get_url_to_auth(request, return_to=None):
     return url
 
 
-def create_user(nickname, access_token):
+def create_user(nickname, account_id, access_token):
     """Создает нового User, или возвращает существующего."""
 
     try:
@@ -50,7 +50,7 @@ def create_user(nickname, access_token):
     except ObjectDoesNotExist:
 
         password = User.objects.make_random_password(length=25)
-        user = User.objects.create_user(nickname, '', password)
+        user = User.objects.create_user(nickname, '', password, id=account_id)
         user = get_new_access_token(user, access_token)
         user.save()
 

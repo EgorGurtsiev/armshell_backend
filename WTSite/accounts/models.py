@@ -9,3 +9,10 @@ class CustomUser(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    company = models.ForeignKey('company.Company', null=True, on_delete=models.SET_NULL)
+
+
+class Stats(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    obj907 = models.IntegerField('Объект 907')
+    Chieftain = models.IntegerField('T95/FV4201 Chieftain')

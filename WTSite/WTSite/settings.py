@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     # User apps
     'home.apps.HomeConfig',
     'accounts.apps.AccountConfig',
+    'stats.apps.StatsConfig',
+    'company.apps.CompanyConfig',
 ]
 
 MIDDLEWARE = [
