@@ -4,12 +4,9 @@ from openid_wargaming.verification import Verification, OpenIDVerificationFailed
 from django.urls import reverse
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import login
-from django.http.response import HttpResponse
 
 import requests
-import datetime
-import re
+from datetime import datetime
 
 from django.conf import settings
 
@@ -31,7 +28,7 @@ def get_url_to_auth(request, return_to=None):
     data = {
         'application_id': application_id,
         'nofollow': 1,
-        'expires_at': 60,
+        'expires_at': 1209600,  # 2 недели
         'redirect_uri': return_to
     }
 
@@ -41,7 +38,7 @@ def get_url_to_auth(request, return_to=None):
     return url
 
 
-def create_user(nickname, account_id, access_token):
+def create_user(nickname, account_id, access_token, expires_at):
     """Создает нового User, или возвращает существующего."""
 
     try:
@@ -51,8 +48,10 @@ def create_user(nickname, account_id, access_token):
 
         password = User.objects.make_random_password(length=25)
         user = User.objects.create_user(nickname, '', password, id=account_id)
-        user = get_new_access_token(user, access_token)
-        user.save()
+
+    user.access_token = access_token
+    user.expires_at = datetime.fromtimestamp(int(expires_at))
+    user.save()
 
     return user
 
@@ -80,10 +79,8 @@ def openid_response_verification(request):
 
 def get_new_access_token(user, access_token=None):
     """"Возвращает новый access_token сроком на 2 недели. В случае ошибки выбрасывает Exception."""
-
     if not access_token:
         access_token = user.access_token
-
     data = {
         'application_id': settings.APPLICATION_ID,
         'access_token': access_token
@@ -91,6 +88,6 @@ def get_new_access_token(user, access_token=None):
     response = requests.post(url='https://api.worldoftanks.ru/wot/auth/prolongate/', data=data)
     if response.json()['status'] == 'ok':
         user.access_token = response.json()['data']['access_token']
-        user.expires_at = datetime.datetime.fromtimestamp(response.json()['data']['expires_at'])
+        user.expires_at = datetime.fromtimestamp(response.json()['data']['expires_at'])
         return user
     return Exception

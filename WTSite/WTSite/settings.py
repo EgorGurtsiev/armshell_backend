@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # User apps
+    # User apps:
     'home.apps.HomeConfig',
+    # accounts - приложение реализующее регистрацию, вход, профиль пользователя, собственную модель user
     'accounts.apps.AccountConfig',
     'stats.apps.StatsConfig',
     'company.apps.CompanyConfig',
+    'clan.apps.ClanConfig',
 ]
 
 MIDDLEWARE = [
@@ -131,6 +133,12 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# settings_dir = os.path.dirname(__file__)
+# PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
+# STATICFILES_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'static/home/'),
+# )
 
 # Media files
 MEDIA_URL = '/media/'

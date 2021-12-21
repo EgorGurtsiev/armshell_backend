@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container-xxl">
+<div class="row">
+    {% for reserve in data %}
+        {% if not reserve.disposable %}
+            <div class="col order-last p-3 border bg-light">
+                <img src={{reserve.img}} height="150px" class="rounded mx-auto d-block" >
+                <b>{{reserve.name}}:</b>
+                {% for obj in reserve.in_stock %}
+                    <hr/>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col">
+                        Уровень: {{ obj.level }}
+                        <br>Время действия: {{ obj.action_time }}ч.
+                        {% for bv in obj.bonus_values %}
+                            <br>+ {{ bv.value }}% {{ bv.battle_type|lower }}
+                        {% endfor %}</div>
+
+                        <div class="col"><button class="btn btn-primary" formmethod="post" value="'type': '{{reserve.type}}', 'level': '{{obj.level}}'">Активировать</button></div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

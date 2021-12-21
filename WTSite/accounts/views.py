@@ -18,15 +18,20 @@ def login_user_step1(request):
 
 def login_user_step2(request):
     if openid_response_verification(request):
-
-        user = create_user(request.GET['nickname'], request.GET['account_id'], request.GET['access_token'])
+        user = create_user(
+            request.GET['nickname'],
+            request.GET['account_id'],
+            request.GET['access_token'],
+            request.GET['expires_at'])
         login(request, user)
+
         # user.access_token = new_access_token  --------------------------------------------------
         # user.save()
 
         url_back = request.COOKIES['url_back']
         response = redirect(url_back)
         response.delete_cookie('url_back')
+
         return response
     else:
         logout(request)
