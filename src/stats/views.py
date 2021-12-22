@@ -28,3 +28,6 @@ class StatsView(TemplateView):
                 context['error'] = stats['error']
         return context
 
+
+class MyStats(TemplateView):
+    pass

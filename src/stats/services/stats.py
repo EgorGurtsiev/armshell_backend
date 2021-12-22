@@ -21,15 +21,12 @@ def tanks_stats(account_id, tank_id):
                       "stronghold_defense.damage_dealt"
         }
         res_json = requests.post(api_url, req_data).json()
-        print(res_json)
-
         if res_json["status"] == "ok":
             if res_json["data"][str(account_id)] is None:
                 return "Игрок не проводил боев в наступлениях"
             else:
                 return res_json["data"][str(account_id)]
         else:
-            print("error: def request_to_api")
             return "Серверная ошибка"
 
     result = {}
@@ -41,7 +38,6 @@ def tanks_stats(account_id, tank_id):
         result['status'] = "ок"
         result['data'] = []
         for item in stats:
-            print(item)
             if item['stronghold_defense']['battles'] == 0:
                 continue
             temp = dict.fromkeys(['tank_name', 'battles', 'pct_wins', 'avg_dmg', 'avg_asst'])
@@ -63,11 +59,9 @@ def account_search(nickname):
         "limit": 1,
     }
     res_json = requests.post(api_url, data).json()
-    print(res_json)
     if res_json['status'] == "ok":
         if res_json['meta']['count']:
             account_id = res_json["data"][0]["account_id"]
-            print(account_id)
             return account_id
         else:
             return "Аккаунт не найден"

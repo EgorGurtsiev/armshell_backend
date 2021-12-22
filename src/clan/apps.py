@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class ClanConfig(AppConfig):
-    name = 'clan'
+    name = 'src.clan'
