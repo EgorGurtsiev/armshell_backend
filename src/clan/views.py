@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views.decorators.http import require_http_methods, require_POST
 from .services.reserves import get_dict_reserves, formatting_for_issue
 from django.contrib.auth import get_user_model
 User = get_user_model()

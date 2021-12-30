@@ -5,7 +5,7 @@
 <div class="row">
     {% for reserve in data %}
         {% if not reserve.disposable %}
-            <div class="col order-last p-3 border bg-light">
+            <div class="col order-last p-3 border-right border-left">
                 <img src={{reserve.img}} height="150px" class="rounded mx-auto d-block" >
                 <b>{{reserve.name}}:</b>
                 {% for obj in reserve.in_stock %}

@@ -1,8 +1,8 @@
 {% extends 'base_generic.html' %}
 {% block content %}
     <h1 class=" font-monospace">{{ nickname }}</h1>
-    {% if error %}
-        <h2 class="text-warning">{{ error }}</h2>
+    {% if status == "error" %}
+        <h2 class="text-warning">{{ massage }}</h2>
     {% else %}
         <table class="table table-hover table-striped table-secondary">
             <thead>
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody class="">
-                {% for tank in stats %}
+                {% for tank in data %}
                     <tr>
                         <td>
                             {{ tank.tank_name }}

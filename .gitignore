@@ -1,3 +1,4 @@
-/WTSite/WTSite/secret.py
-/WTSite/gae-openid/
-/WTSite/db.sqlite3
+config/secret.py
+.idea
+db.sqlite3
+/venv
