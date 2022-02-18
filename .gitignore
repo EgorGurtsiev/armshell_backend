@@ -1,4 +1,6 @@
-config/secret.py
 .idea
 db.sqlite3
-/venv
+venv
+__pycache__
+/config/prod_settings.py
+/logs/debug.log

@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <h2 class=" font-monospace">{{ nickname }}</h2>
+    {% if status == "error" %}
+        <h2 class="text-warning">{{ massage }}</h2>
+    {% else %}
+        <table class="table table-hover table-striped table-secondary">
+            <thead>
+                <tr class="table-info">
+                    <td>
+                        Техника
+                    </td>
+                    <td>
+                        Боев
+                    </td>
+                    <td>
+                        Процент побед
+                    </td>
+                    <td>
+                        Средний урон
+                    </td>
+                    <td>
+                        Среднее количество фрагов
+                    </td>
+                </tr>
+            </thead>
+            <tbody class="">
+                {% for tank in data %}
+                    <tr>
+                        <td>
+                            {{ tank.tank_name }}
+                        </td>
+                        <td>
+                            {{ tank.battles }}
+                        </td>
+                        <td>
+                            {{ tank.pct_wins }}%
+                        </td>
+                        <td>
+                            {{ tank.avg_dmg }}
+                        </td>
+                        <td>
+                            {{ tank.avg_frags }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

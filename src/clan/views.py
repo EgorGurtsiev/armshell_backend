@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .services.reserves import get_dict_reserves, formatting_for_issue
 from django.contrib.auth import get_user_model
-User = get_user_model()
+from ..player.models import Player as User
 
 
 def reserves(request):

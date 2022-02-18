@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Wottransfer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-dark">
+            <div class="container-fluid">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="{% url 'home' %}" class="nav-item nav-link px-2">Главная</a></li>
+                    <li><a href="#" class="nav-link px-2 ">Турниры</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Кланы</a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'reserves' %}">Активация резервов</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="nav-link px-2 nav-item">Роты</a></li>
+                    <li>
+                        <a href="#" class="nav-link dropdown-toggle " id="navbarDropdownMenuPlayersLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Игроки</a>
+                        {% if user.is_authenticated %}
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuPlayersLink">
+                            <li><a class="dropdown-item" href="{% url 'stats' user.username %}">Мой профиль</a></li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                </ul><!-- Основная навигация -->
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                </form><!-- Поиск -->
+                <div class="text-end"><!-- Авторизация или профиль -->
+                    {% if user.is_authenticated %}
+                        <div class="dropdown text-end">
+                            <a href="#" class="d-block link-light light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{% static 'img/person-square.svg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
+                                <a class="dropdown-item">{{ request.user.username }}</a>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Мой профиль</a></li>
+                                <li><a class="dropdown-item" href="#">Настройки</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}?next={{ request.get_full_path }}">Выйти</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <span href="href="{% url 'url_to_OpenID' %}?next={{ request.get_full_path }}"">
+                                <button type="button" class="btn btn-outline-light" onClick='location.href="{% url 'url_to_OpenID' %}?next={{ request.get_full_path }}"'>
+                                    <img src="{% static 'img/wargaming.svg' %}" alt="mdo" width="25" height="25" class="wg-icon">
+                                    <span>Войти</span>
+                                </button>
+                                </span>
+                    {% endif %}
+                </div><!-- Авторизация/Профиль -->
+            </div>
+        </nav>
+    </header>
+    <main class="content bg-light p-5">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    <footer>
+        <div class="container-xxl">
+            <div class="row">
+                <div class="col-2">
+                    <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Раздел</font></font></h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Домой</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Функции</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Цены</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Часто задаваемые вопросы</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">О</font></font></a></li>
+                    </ul>
+                </div>
+
+                <div class="col-2">
+                    <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Раздел</font></font></h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Домой</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Функции</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Цены</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Часто задаваемые вопросы</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">О</font></font></a></li>
+                    </ul>
+                </div>
+
+
+                <div class="col-2">
+                    <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Раздел</font></font></h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Домой</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Функции</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Цены</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Часто задаваемые вопросы</font></font></a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">О</font></font></a></li>
+                    </ul>
+                </div>
+
+                <div class="col-4 offset-1">
+                    <form>
+                        <h5><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Подписывайтесь на нашу новостную рассылку</font></font></h5>
+                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Ежемесячный дайджест всего нового и интересного от нас.</font></font></p>
+                        <div class="d-flex w-100 gap-2">
+                            <label for="newsletter1" class="visually-hidden"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Адрес электронной почты</font></font></label>
+                            <input id="newsletter1" type="text" class="form-control" placeholder="Адрес электронной почты">
+                            <button class="btn btn-primary" type="button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Подписаться</font></font></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between border-top">
+                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2021 Company, Inc. Все права защищены.</font></font></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

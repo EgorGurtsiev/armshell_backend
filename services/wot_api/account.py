@@ -7,3 +7,12 @@ class AccountList(RequestToAPI):
 
     def get_response(self):
         return self.request_to_api(url="https://api.worldoftanks.ru/wot/account/list/")
+
+
+class AccountInfo(RequestToAPI):
+    def __init__(self, account_id, access_token=None, extra=[], fields=[], language='ru'):
+        super(AccountInfo, self).__init__(account_id=account_id, access_token=access_token, extra=extra, fields=fields,
+                                          language=language)
+
+    def get_response(self):
+        return self.request_to_api(url="https://api.worldoftanks.ru/wot/account/info/")
