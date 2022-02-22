@@ -5,7 +5,7 @@
 <div class="row">
     {% for reserve in data %}
         {% if not reserve.disposable %}
-            <div class="col order-last p-3 border-right border-left">
+            <div class="col order-last p-3 ">
                 <img src={{reserve.img}} height="150px" class="rounded mx-auto d-block" >
                 <b>{{reserve.name}}:</b>
                 {% for obj in reserve.in_stock %}
@@ -18,7 +18,7 @@
                             <br>+ {{ bv.value }}% {{ bv.battle_type|lower }}
                         {% endfor %}</div>
 
-                        <div class="col"><button class="btn btn-primary" formmethod="post" value="'type': '{{reserve.type}}', 'level': '{{obj.level}}'">Активировать</button></div>
+                        <div class="row row-centered"><button class="btn btn-primary" formmethod="post" value="'type': '{{reserve.type}}', 'level': '{{obj.level}}'">Активировать</button></div>
 
                     </div>
                 {% endfor %}

@@ -87,6 +87,10 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [],
+}
+
 try:
     from .local_settings import *
 except ImportError:

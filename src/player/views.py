@@ -60,5 +60,3 @@ class MyStats(TemplateView):
         return self.render_to_response(context)
 
 
-class SearchPlayer:
-    pass
