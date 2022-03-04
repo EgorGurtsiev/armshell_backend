@@ -5,16 +5,18 @@ def get_dict_reserves(access_token):
     reserves = ClanReserves(access_token, fields='disposable, name, type, in_stock.action_time, '
                                                  'in_stock.activated_at, in_stock.active_till, in_stock.amount,	'
                                                  'in_stock.level, in_stock.bonus_values.value, '
-                                                 'in_stock.bonus_values.battle_type').get_response()['data']
+                                                 'in_stock.bonus_values.battle_type, in_stock.x_level_only'
+                            ).get_response()['data']
+    print(reserves)
     return reserves
 
 
 def formatting_for_issue(data):
     dict_img = {
-        'ADDITIONAL_BRIEFING': "https://ru-wotp.wgcdn.co/dcont/fb/image/military_maneuvers_(2)_KBiZ3DF.png",
-        'BATTLE_PAYMENTS': "https://ru-wotp.wgcdn.co/dcont/fb/image/battle_payments_dn0kgqb.png",
-        'MILITARY_MANEUVERS': "https://ru-wotp.wgcdn.co/dcont/fb/image/additional_briefing_(2)_EUordU9.png",
-        'TACTICAL_TRAINING': "https://ru-wotp.wgcdn.co/dcont/fb/image/tactical_training_(2)_utNaHIo.png",
+        'ADDITIONAL_BRIEFING': "img/reserves/ADDITIONAL_BRIEFING.png",
+        'BATTLE_PAYMENTS': "img/reserves/BATTLE_PAYMENTS.png",
+        'MILITARY_MANEUVERS': "img/reserves/MILITARY_MANEUVERS.png",
+        'TACTICAL_TRAINING': "img/reserves/TACTICAL_TRAINING.png",
     }
     for temp_type in data:
         if temp_type['disposable']:
