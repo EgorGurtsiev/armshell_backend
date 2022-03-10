@@ -27,8 +27,8 @@ class Player(models.Model):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username', 'account_id', 'access_token', 'expires_at']
 
-    # company = models.ForeignKey('company.Company', on_delete=models.SET_NULL, null=True, blank=True,
-    #                             related_name='player')
+    company = models.ForeignKey('company.Company', on_delete=models.SET_NULL, null=True, blank=True,
+                                related_name='player')
     clan = models.ForeignKey('clan.Clan', on_delete=models.SET_NULL, null=True, blank=True, related_name='player')
     #objects = PlayerManager()
 

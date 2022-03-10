@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import RegdCompany#, DelCompany
+from .views import RegistrationCompanyView
 
 
 urlpatterns = [
-    path('add/', RegdCompany.as_view(), name='new-company'),
-    #path('delete/', DelCompany.as_view(), 'del-company'),
+    path('registration/', RegistrationCompanyView.as_view(), name='add_company'),
 ]

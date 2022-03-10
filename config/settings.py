@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'src.oauth',
     'src.home',
     'src.player',
+    'src.company',
     'src.clan',
 ]
 

@@ -1,0 +1,24 @@
+{% extends 'base\base.html' %}
+{% block title %}Регистрация роты{% endblock %}
+{% block content %}
+    <div class="p-5">
+        <form action="{% url 'add_company' %}" method="post" id="formCompany">
+            {% csrf_token %}
+            <div class="pb-3">
+                <label class="form-label" for="inputTag">Название роты:</label>
+                <input id="inputTag" class="form-control" type="text" name="name" value="">
+                <div id="passwordHelpBlock" class="form-text col-auto">
+                    Название роты должно содержать от 2 до 16 символов.
+                </div>
+            </div>
+            <div class="pb-3">
+                <label for="inputDesk" class="form-label">Описание роты(укажите прайм-тайм роты, требования для вступления в роту):</label>
+                <input class="form-control" id="inputDesk" type="text" name="description" value="">
+                <div id="passwordHelpBlock" class="form-text">
+                   Описание роты должно содержать до 256 символов.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Создать</button>
+        </form>
+    </div>
+{% endblock %}
