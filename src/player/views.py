@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
@@ -60,3 +61,24 @@ class MyStats(TemplateView):
         return self.render_to_response(context)
 
 
+class SearchForPlayerInClans(TemplateView):
+    template_name = 'player/search_busy_player.html'
+    is_list = False
+
+    # def get(self, request, *args, **kwargs):
+    #     pass
+    #
+    #
+    # def post(self, request, *args, **kwargs):
+    #     pass
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.GET.get('page'):
+            data = ['askdsf', 'asdfasdf', 'asdf', 'askdsf', 'asdfasdf', 'askdsf', 'asdfasdf', 'askdsf', 'asdfasdf', 'askdsf', 'asdfasdf']
+            paginator = Paginator(data, 4)
+
+            page_number = self.request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            context['page_obj'] = page_obj
+        return context
