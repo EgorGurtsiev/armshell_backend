@@ -16,6 +16,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 #
 #         user.save(using=self._db)
 #         return user
+from services.wot_api.clan import AccountInfo
 
 
 class Player(models.Model):
@@ -35,6 +36,22 @@ class Player(models.Model):
     date_joined = models.DateTimeField('date joined', default=timezone.now)
     last_login = models.DateTimeField('last login', blank=True, null=True)
     is_active = models.BooleanField(default=True)
+
+    @property
+    def is_officer(self):
+        rank_list = ['personnel_officer', 'combat_officer', 'executive_officer', 'commander']
+        if AccountInfo(self.account_id, fields=['role']).get_response()['data'][self.account_id]['role'] in rank_list:
+            return True
+        else:
+            return False
+
+    @property
+    def is_senior_officer(self):
+        rank_list = ['executive_officer', 'commander']
+        if AccountInfo(self.account_id, fields=['role']).get_response()['data'][self.account_id]['role'] in rank_list:
+            return True
+        else:
+            return False
 
     @property
     def is_anonymous(self):

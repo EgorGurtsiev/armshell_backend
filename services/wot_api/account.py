@@ -6,7 +6,7 @@ class AccountList(RequestToAPI):
         super(AccountList, self).__init__(search=search, fields=fields, language=language, limit=limit, type=type_)
 
     def get_response(self):
-        return self.request_to_api(url="https://api.worldoftanks.ru/wot/account/list/")
+        return self._request_to_api(url="https://api.worldoftanks.ru/wot/account/list/")
 
 
 class AccountInfo(RequestToAPI):
@@ -15,4 +15,5 @@ class AccountInfo(RequestToAPI):
                                           language=language)
 
     def get_response(self):
-        return self.request_to_api(url="https://api.worldoftanks.ru/wot/account/info/")
+        return self._multiple_request_to_api(url="https://api.worldoftanks.ru/wot/account/info/",
+                                             multiple_field='account_id', limit=100)

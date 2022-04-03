@@ -8,5 +8,5 @@ class TanksStats(RequestToAPI):
         if in_garage is not None:
             self.data['in_garage'] = in_garage
 
-    def get_response(self):
-        return self.request_to_api(url="https://api.worldoftanks.ru/wot/tanks/stats/")
+    def get_response(self, session=None):
+        return self._request_to_api(url="https://api.worldoftanks.ru/wot/tanks/stats/", session=session)

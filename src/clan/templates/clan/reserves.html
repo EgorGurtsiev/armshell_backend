@@ -39,7 +39,7 @@
                                 </button>
 
                             {% else %}
-                                <button class="btn btn-primary" formmethod="post" value="'type': '{{reserve.type}}', 'level': '{{obj.level}}'">
+                                <button class="btn btn-primary" formmethod="post" value="'type': '{{reserve.type}}', 'level': '{{obj.level}}'" name="button_{{reserve.type}}_{{obj.level}}" onclick="activate_reserve(type={{reserve.type}}, level={{obj.level}})">
                                     Активировать
                                 </button>
                             {% endif %}

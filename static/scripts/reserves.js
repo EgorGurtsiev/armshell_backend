@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // конечная дата, например 1 июля 2021
-    const deadline = new Date(2021, 06, 01);
+    const deadline = new Date(2021, 6, 1);
     // id таймера
     let timerId = null;
     // склонение числительных
@@ -36,3 +36,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // вызываем функцию countdownTimer каждую секунду
     timerId = setInterval(countdownTimer, 1000);
 });
+
+
+function activate_reserve(type, level){
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/clan/api/reserves/activate/', );
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    let data = JSON.stringify({
+        'type': type,
+        'level': level
+    });
+    xhr.send(data);
+
+    xhr.onreadystatechange = function() {
+    }
+}

@@ -3,16 +3,15 @@
 {% block content %}
     <h1 class="text-center p-5">Поиск игроков в кланах</h1>
     <div class="container pb-5"></div>
-        <form action="{% url 'search_for_players_in_clans' %}">
+        <form id="search_form" method="post">
+            <script>
+                const CSRF_TOKEN = '{{ csrf_token }}';
+            </script>
             {% csrf_token %}
             <div class="input-group">
-                <label for="" class="col-form-label pr-2">Введите ключевые слова:</label>
-                <input class="form-control" type="text"></input>
+                <label for="search" class="col-form-label">Введите ключевые слова:</label>
+                <input class="form-control" id="search" name="search" type="text">
                 <button class="btn btn-primary" type="submit">Искать</button>
             </div>
         </form>
-    {% if data %}
-
-    {% endif %}
-
 {% endblock %}

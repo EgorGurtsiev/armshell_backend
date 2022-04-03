@@ -7,7 +7,7 @@ class AuthLogin(RequestToAPI):
                                         redirect_uri=redirect_uri)
 
     def get_response(self):
-        return self.request_to_api(url="https://api.worldoftanks.ru/wot/auth/login/")
+        return self._request_to_api(url="https://api.worldoftanks.ru/wot/auth/login/")
 
 
 class AuthProlongate(RequestToAPI):
@@ -15,4 +15,4 @@ class AuthProlongate(RequestToAPI):
         super(AuthProlongate, self).__init__(access_token=access_token, expires_at=expires_at)
 
     def get_response(self):
-        return self.request_to_api(url="https://api.worldoftanks.ru/wot/auth/prolongate/")
+        return self._request_to_api(url="https://api.worldoftanks.ru/wot/auth/prolongate/")

@@ -1,5 +1,9 @@
 {% extends "base/base.html" %}
+{% load static %}
 
 {% block content %}
-    <img src="https://ic.pics.livejournal.com/sergeybond/19345813/218357/218357_900.jpg"  alt="My image" class="rounded mx-auto d-block" />
+    <img src="{% static "img/favicon_512.png" %}" width="256"  alt="My image" class="rounded mx-auto d-block" />
+    <h1 class="h1 text-center pt-2"><b>Armshell</b></h1>
+    <h2 class="h2 text-center p-4">Цель проекта <b class="">Armshell.ru</b> - создать площадку, где игроки Абсолютного формата смогут найти
+    для себя роту, сравнить свои результаты и результаты своей роты с другими, найти спонсирование для своей роты и другое.</h2>
 {% endblock %}
