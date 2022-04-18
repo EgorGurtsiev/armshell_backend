@@ -11,6 +11,7 @@ class SearchPlayerInClans:
     Player_list = [
     {
         account_id = int
+        clan_tag = str
         last_battle_time = int (unix time)
         battles_in_clan_wars = int
         stats = [

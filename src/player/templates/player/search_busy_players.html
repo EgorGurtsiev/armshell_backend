@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Поиск игроков в кланах{% endblock %}
+{% block extra_script %}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="{% static 'player/search_busy.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center p-5">Поиск игроков в кланах</h1>
+    <form class="pt-5" id="search_form" method="post">
+        <script>
+            const CSRF_TOKEN = '{{ csrf_token }}';
+        </script>
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="search" class="col-form-label">Введите ключевые слова:</label>
+            <input class="form-control" id="search" name="search" type="text">
+            <button class="btn btn-primary" type="submit">Искать</button>
+        </div>
+    </form>
+{% verbatim %}
+    <div class="container" id="psearch" v-if="show_status">
+        <table class="table table-hover table-striped table-secondary mb-0 mt-5">
+            <thead>
+            <tr class="table-info">
+                <td>
+                    Ник
+                </td>
+                <td>
+                    Клан
+                </td>
+                <td>
+                    WN8 за последнюю 1000 боев
+                </td>
+                <td>
+                    Количество боев в АБС формате
+                </td>
+                <td>
+                    Техника в ангаре
+                </td>
+                <td>
+                    Дата крайнего боя
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <template v-for="(player, index) in players_list">
+                <tr class="accordion-toggle" data-bs-toggle="collapse" v-bind:data-bs-target=`#player-${index}` >
+                <td>
+                    {{ player.nickname }}
+                </td>
+                <td>
+                    {{ player.clan_tag }}
+                </td>
+                <td>
+                    В разработке
+                </td>
+                <td>
+                    {{ player.battles_in_clan_wars }}
+                </td>
+                <td>
+                    {{ player.tanks_list }}
+                </td>
+                <td>
+                    {{ player.last_battle_time }}
+                </td>
+            </tr>
+                <tr class="collapse" v-bind:id=`player-${index}`>
+                <td colspan="6">
+                    hh;k.lkjlkjkjlkjlj
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr class="accordian-body collapse" id="ttable">
+                                <td>One-B</td>
+                                <td>Two-B</td>
+                                <td>Three-B</td>
+                                <td>Four-B</td>
+                                <td>Five-B</td>
+                                <td>Six-B</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </template>
+            </tbody>
+        </table>
+    </div>
+{% endverbatim %}
+{% endblock %}
