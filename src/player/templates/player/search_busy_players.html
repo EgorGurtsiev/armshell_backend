@@ -1,8 +1,8 @@
 {% extends 'base/base.html' %}
-{% load static %}
 {% block title %}Поиск игроков в кланах{% endblock %}
+{% load static %}
 {% block extra_script %}
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="{% static 'scripts/vue.global.prod.js' %}"></script>
     <script src="{% static 'player/search_busy.js' %}"></script>
 {% endblock %}
 {% block content %}
@@ -20,9 +20,9 @@
     </form>
 {% verbatim %}
     <div class="container" id="psearch" v-if="show_status">
-        <table class="table table-hover table-striped table-secondary mb-0 mt-5">
-            <thead>
-            <tr class="table-info">
+        <table class="table table-striped mb-0 mt-5">
+            <thead class="thead-light">
+                <tr class="table-primary">
                 <td>
                     Ник
                 </td>
@@ -44,45 +44,119 @@
             </tr>
             </thead>
             <tbody>
-            <template v-for="(player, index) in players_list">
-                <tr class="accordion-toggle" data-bs-toggle="collapse" v-bind:data-bs-target=`#player-${index}` >
-                <td>
-                    {{ player.nickname }}
-                </td>
-                <td>
-                    {{ player.clan_tag }}
-                </td>
-                <td>
-                    В разработке
-                </td>
-                <td>
-                    {{ player.battles_in_clan_wars }}
-                </td>
-                <td>
-                    {{ player.tanks_list }}
-                </td>
-                <td>
-                    {{ player.last_battle_time }}
-                </td>
-            </tr>
-                <tr class="collapse" v-bind:id=`player-${index}`>
-                <td colspan="6">
-                    hh;k.lkjlkjkjlkjlj
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr class="accordian-body collapse" id="ttable">
-                                <td>One-B</td>
-                                <td>Two-B</td>
-                                <td>Three-B</td>
-                                <td>Four-B</td>
-                                <td>Five-B</td>
-                                <td>Six-B</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            </template>
+                <template v-for="(player, index) in players_list">
+                    <tr data-bs-toggle="collapse" v-bind:data-bs-target=`#player-${index}` >
+                        <td>
+                            {{ player.nickname }}
+                        </td>
+                        <td>
+                            {{ player.clan_tag }}
+                        </td>
+                        <td>
+                            В разработке
+                        </td>
+                        <td>
+                            {{ player.battles_in_clan_wars }}
+                        </td>
+                        <td>
+                            {{ player.tanks_list }}
+                        </td>
+                        <td>
+                            {{ player.last_battle_time }}
+                        </td>
+                    </tr>
+                    <tr class="collapse accordion" v-bind:id=`player-${index}`>
+                        <td colspan="6">
+                            <div class="container">
+                                <div class="row pr-4 pl-4">
+                                    <table class="table table-striped text-center">
+                                        <thead class="table-primary">
+                                        <tr>
+                                            <td class="text-center">Танк</td>
+                                            <td class="text-center" colspan="3">Рандом</td>
+                                            <td class="text-center" colspan="3">Вылазки</td>
+                                            <td class="text-center" colspan="3">Наступления</td>
+                                            <td class="text-center" colspan="3">Глобальная карта</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <template v-for="tank in player.stats">
+                                            <tr>
+                                                <td class="align-middle" rowspan="2">{{ tank.tank_id }}</td>
+                                                <td class="text-center">Кол-во боев</td>
+                                                <td class="text-center">Средний урон</td>
+                                                <td class="text-center">Средний ассист</td>
+                                                <td class="text-center">Кол-во боев</td>
+                                                <td class="text-center">Средний урон</td>
+                                                <td class="text-center">Средний ассист</td>
+                                                <td class="text-center">Кол-во боев</td>
+                                                <td class="text-center">Средний урон</td>
+                                                <td class="text-center">Средний ассист</td>
+                                                <td class="text-center">Кол-во боев</td>
+                                                <td class="text-center">Средний урон</td>
+                                                <td class="text-center">Средний ассист</td>
+                                            </tr>
+                                            <tr>
+                                                <template v-if="tank.random">
+                                                    <td>{{ tank.random.battles }}</td>
+                                                    <td>{{ tank.random.avg_damage }}</td>
+                                                    <td>{{ tank.random.avg_assist }}-</td>
+                                                </template>
+                                                <template v-else>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                </template>
+                                                <template v-if="tank.stronghold_skirmish">
+                                                    <td>{{ tank.stronghold_skirmish.battles }}</td>
+                                                    <td>{{ tank.stronghold_skirmish.avg_damage }}</td>
+                                                    <td>{{ tank.stronghold_skirmish.avg_assist }}-</td>
+                                                </template>
+                                                <template v-else>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                </template>
+                                                <template v-if="tank.stronghold_defense">
+                                                    <td>{{ tank.stronghold_defense.battles }}</td>
+                                                    <td>{{ tank.stronghold_defense.avg_damage }}</td>
+                                                    <td>{{ tank.stronghold_defense.avg_assist }}-</td>
+                                                </template>
+                                                <template v-else>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                </template>
+                                                <template v-if="tank.globalmap">
+                                                    <td>{{ tank.globalmap.battles }}</td>
+                                                    <td>{{ tank.globalmap.avg_damage }}</td>
+                                                    <td>{{ tank.globalmap.avg_assist }}-</td>
+                                                </template>
+                                                <template v-else>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                </template>
+                                            </tr>
+                                        </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <a class="btn btn-primary" role="button" :href="'/players/' + player.nickname + '/'">Профиль игрока</a>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a class="btn btn-primary" role="button" :href="'https://worldoftanks.ru/ru/community/accounts/' + player.account_id + '-' + player.nickname + '/'">Статистика на оф. портале</a>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a class="btn btn-primary" role="button" :href="'https://kttc.ru/wot/ru/user/' + player.nickname + '/'">КТТС игрока</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>

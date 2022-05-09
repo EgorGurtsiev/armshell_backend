@@ -5,3 +5,4 @@ __pycache__
 /config/prod_settings.py
 /logs/debug.log
 /cer/
+/static/scripts/vue.global.prod.js
