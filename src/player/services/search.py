@@ -32,23 +32,21 @@ class SearchPlayerInClans:
     ...
     ]
     """
-    def __init__(self, search,
-                 count_players_in_clan=60,
-                 last_battle=7,
-                 avg_bamage=None,
-                 battles_in_clan_wars=500):
+    def __init__(self, search, avg_bamage=None, battles_in_clan_wars=500):
+        COUNT_PLAYERS_IN_CLAN = 60
+        LAST_BATTLE_DAYS_AGO = 7
 
         if not avg_bamage:
             avg_bamage = {'57937': 3400, '15617': 3000, '46849': 3500}
-        tanks_list = avg_bamage.keys()
+        tanks_list = list(avg_bamage.keys())
 
         self.clan_list = self._get_clan_list(search)
-        self._clan_filter(count_players_in_clan)
+        self._clan_filter(COUNT_PLAYERS_IN_CLAN)
 
         self.players_list = self._get_players_in_clans()
 
         self._get_last_battle_time_and_count_battles()
-        self._last_battle_filter(last_battle)
+        self._last_battle_filter(LAST_BATTLE_DAYS_AGO)
         self._count_battles_filter(battles_in_clan_wars)
 
         self._get_detail_account_stats(tanks_list)
@@ -146,7 +144,7 @@ class SearchPlayerInClans:
                             'avg_damage': tank['stronghold_defense']['damage_dealt'] / tank['stronghold_defense']['battles'],
                             'battles': tank['stronghold_defense']['battles'],
                             'percent_win': tank['stronghold_defense']['wins'] / tank['stronghold_defense']['battles'] * 100,
-                        },
+                        }
                     if tank['globalmap']['battles']:
                         tank_stats['globalmap'] = {
                             'avg_damage': tank['globalmap']['damage_dealt'] / tank['globalmap']['battles'],

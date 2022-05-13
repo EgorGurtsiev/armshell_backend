@@ -15,12 +15,12 @@ from ..models import Player as User
 class StatsView(TemplateView):
     """Это view должно отображать общюю абс-статистику игрока"""
 
-    template_name = 'stats/stats.html'
+    template_name = 'player/stats.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            stats = tanks_stats(account_id=account_search(nickname=self.kwargs['nickname']),
+            stats = tanks_stats(account_id=account_search(nickname=kwargs['nickname']),
                                 tank_id="57937, 15617, 19009, 19969, 22017, 15697, 4737, 3681")
         except ExceptionAPI as err:
             context['status'] = "error"
@@ -74,6 +74,12 @@ class SearchPlayerInOtherClans(TemplateView):
 
     def get_context_data(self, request, **kwargs):
         context = super().get_context_data(**kwargs)
+        try:
+            slug = kwargs['search']
+            data = cache.get(request.POST.get('slug'))
+        except:
+            pass
+
         if self.request.GET.get('page'):
             data = cache.get(request.POST.get('search'))
             paginator = Paginator(data, 4)

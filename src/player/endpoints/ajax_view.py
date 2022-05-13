@@ -4,11 +4,20 @@ from rest_framework.response import Response
 from ..serializers import SearchPlayersInOtherClansSerializer
 from django.core.cache import cache
 
+from services.wot_api.account import AccountList
+
+
+@api_view(['GET'])
+def search_player(request):
+    data = AccountList(search=request.query_params['nickname'], limit=3).get_response()['data']
+    return Response(data)
+
 
 @api_view(['POST'])
 def search_busy_player(request):
     serializer = SearchPlayersInOtherClansSerializer(data=request.data)
-    return Response
+
+    return Response(data)
     # if serializer.is_valid():
     #     serializer.save()
     #     result = cache.get(serializer.search)
