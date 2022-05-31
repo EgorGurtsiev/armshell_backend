@@ -2,12 +2,12 @@ from services.wot_api.stronghold import ClanReserves
 
 
 def get_dict_reserves(access_token):
-    reserves = ClanReserves(access_token, fields='disposable, name, type, in_stock.action_time, '
-                                                 'in_stock.activated_at, in_stock.active_till, in_stock.amount,	'
-                                                 'in_stock.level, in_stock.bonus_values.value, '
-                                                 'in_stock.bonus_values.battle_type, in_stock.x_level_only'
+    reserves = ClanReserves(access_token,
+                            fields='disposable, name, type, in_stock.action_time, '
+                                   'in_stock.activated_at, in_stock.active_till, in_stock.amount,	'
+                                   'in_stock.level, in_stock.bonus_values.value, '
+                                   'in_stock.bonus_values.battle_type, in_stock.x_level_only'
                             ).get_response()['data']
-    print(reserves)
     return reserves
 
 

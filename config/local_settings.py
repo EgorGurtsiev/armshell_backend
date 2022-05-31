@@ -12,6 +12,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
