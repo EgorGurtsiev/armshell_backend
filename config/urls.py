@@ -9,5 +9,6 @@ urlpatterns = [
     path('players/', include('src.player.urls')),
     path('company/', include('src.company.urls')),
     path('clan/', include('src.clan.urls')),
+    path('api/', include('config.urls_api')),
     path('', include('src.home.urls')),
 ]
