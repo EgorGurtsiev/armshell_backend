@@ -6,10 +6,8 @@ from services.wot_api.auth import AuthProlongate
 from services.wot_api.clan import ClanInfo
 from services.wot_api.account import AccountList, AccountInfo
 from services.wot_api.wot_api import ExceptionAPI
-from src.player.models import Player
+from src.player.models import Player as User
 from src.clan.models import Clan
-
-User = Player
 
 
 class WGOpenIDBackend(BaseBackend):
@@ -22,20 +20,19 @@ class WGOpenIDBackend(BaseBackend):
             temp = self._check_com_access_token_account_id(access_token, account_id)
             self._check_com_nickname_account_id(nickname, account_id)
         except ExceptionAPI:
-            #log
             return None
 
         access_token = temp['access_token']
         expires_at = datetime.datetime.fromtimestamp(temp['expires_at']).strftime('%Y-%m-%d %H:%M:%S')
 
         try:
-            user = User.objects.get(account_id=account_id)
+            user = User.objects.get(id=account_id)
             user.access_token = access_token
             user.expires_at = expires_at
         except User.DoesNotExist:
             user = User(
                 username=nickname,
-                account_id=account_id,
+                id=account_id,
                 access_token=access_token,
                 expires_at=expires_at
             )
@@ -46,7 +43,7 @@ class WGOpenIDBackend(BaseBackend):
 
     def get_user(self, account_id):
         try:
-            return User.objects.get(account_id=account_id)
+            return User.objects.get(id=account_id)
         except User.DoesNotExist:
             return None
 
@@ -81,7 +78,7 @@ class WGOpenIDBackend(BaseBackend):
             raise ExceptionAPI('Серверная ошибка на стороне Wargaming!')
 
     def _get_user_clan(self, user):
-        clan_id = self.get_clan_id(str(user.account_id))
+        clan_id = self.get_clan_id(str(user.id))
         if clan_id:
             try:
                 clan = Clan.objects.get(clan_id=str(clan_id))

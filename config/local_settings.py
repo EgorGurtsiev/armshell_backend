@@ -4,7 +4,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = '7sdfgf59ccfgsd83eeb85604113272asde8938sdfgfsfdg21523'
 
 APPLICATION_ID = os.environ.get('APPLICATION_ID')
 

@@ -1,10 +1,8 @@
 from django.urls import reverse
-from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect
 from django.http import HttpResponse
-from .services.wargaming_openid_auth import get_url_to_auth, create_user, openid_response_verification,\
-    get_new_access_token
+from .services.wargaming_openid_auth import get_url_to_auth, create_user, openid_response_verification
 
 
 def login_user_step1(request):
