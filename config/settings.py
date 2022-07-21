@@ -17,9 +17,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
+    'src.staff',
     'src.player',
     'src.custom_auth',
-    'src.home',
     'src.company',
     'src.clan',
 ]
