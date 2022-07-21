@@ -11,7 +11,6 @@ urlpatterns = [
     path('players/', include('src.player.urls')),
     path('company/', include('src.company.urls')),
     path('clan/', include('src.clan.urls')),
-    path('', include('src.home.urls')),
 
     path('api/', include(api)),
 ]
