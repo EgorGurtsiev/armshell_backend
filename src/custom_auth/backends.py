@@ -11,35 +11,33 @@ from src.clan.models import Clan
 
 
 class WGOpenIDBackend(BaseBackend):
-    def authenticate(self, request, nickname=None, account_id=None, access_token=None):
-        nickname = nickname or request.GET['nickname']
-        account_id = account_id or request.GET['account_id']
-        access_token = access_token or request.GET['access_token']
+    def authenticate(self, request, nickname=None, account_id=None, access_token=None, expires_at=None):
+        if nickname is None or account_id is None or access_token is None or expires_at is None:
+            return
 
         try:
-            temp = self._check_com_access_token_account_id(access_token, account_id)
-            self._check_com_nickname_account_id(nickname, account_id)
+            self._check_player_data(nickname, access_token, account_id)
         except ExceptionAPI:
             return None
 
-        access_token = temp['access_token']
-        expires_at = datetime.datetime.fromtimestamp(temp['expires_at']).strftime('%Y-%m-%d %H:%M:%S')
+        expires_at = datetime.datetime.fromtimestamp(int(expires_at)).strftime('%Y-%m-%d %H:%M:%S')
 
         try:
             user = User.objects.get(id=account_id)
             user.access_token = access_token
             user.expires_at = expires_at
         except User.DoesNotExist:
-            user = User(
+            user = User.objects.create_user(
                 username=nickname,
                 id=account_id,
                 access_token=access_token,
                 expires_at=expires_at
             )
-
-        user.clan = self._get_user_clan(user)
-        user.save()
         return user
+
+    def _check_player_data(self, nickname, access_token, account_id):
+        return  # todo реализовать проверку данных пользователя
+
 
     def get_user(self, account_id):
         try:
@@ -76,18 +74,6 @@ class WGOpenIDBackend(BaseBackend):
                 raise ExceptionAPI(f'Аккаунт "{nickname}" не найден!')
         else:
             raise ExceptionAPI('Серверная ошибка на стороне Wargaming!')
-
-    def _get_user_clan(self, user):
-        clan_id = self.get_clan_id(str(user.id))
-        if clan_id:
-            try:
-                clan = Clan.objects.get(clan_id=str(clan_id))
-                return clan
-            except Clan.DoesNotExist:
-                clan = self._add_clan_to_db(clan_id=str(clan_id))
-                return clan
-        else:
-            return None
 
     def get_clan_id(self, account_id):
         res = AccountInfo(account_id=account_id).get_response()

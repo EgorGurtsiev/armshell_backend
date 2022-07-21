@@ -32,7 +32,6 @@ def login_user_step2(request):
 
         return response
     else:
-        logout(request)
         return HttpResponse('Forbidden')
 
 

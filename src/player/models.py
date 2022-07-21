@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.db import models
 
 from services.wot_api.clan import AccountInfo
+from src.clan.models import Clan
 
 
 class PlayerManager(models.Manager):
@@ -15,9 +16,21 @@ class PlayerManager(models.Manager):
             access_token=access_token,
             expires_at=datetime.fromtimestamp(int(expires_at))
         )
+        user.clan = self._get_user_clan(user)
         user.save(using=self._db)
         return user
 
+    def _get_user_clan(self, user):
+        clan_id = self.get_clan_id(str(user.id))
+        if clan_id:
+            try:
+                clan = Clan.objects.get(clan_id=str(clan_id))
+                return clan
+            except Clan.DoesNotExist:
+                clan = self._add_clan_to_db(clan_id=str(clan_id))
+                return clan
+        else:
+            return None
 
 class Player(models.Model):
     username = models.CharField(verbose_name='Имя в игре', max_length=25, unique=True)
