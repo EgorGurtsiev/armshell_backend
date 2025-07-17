@@ -1,8 +1,8 @@
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+# Armshell
+
 [![Python](https://img.shields.io/badge/Python-3.9%2B-green)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/django-1)](https://www.djangoproject.com/)
-# Armshell [![Armshell](https://awesome.re/badge-flat.svg)](https://github.com/sindresorhus/awesome)
 
 > Cервис-гарант для безопасных сделок между игроками, кланами, ротами и спонсорами.
 
